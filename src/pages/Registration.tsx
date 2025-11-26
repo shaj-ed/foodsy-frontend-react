@@ -1,11 +1,17 @@
 import LabelError from "@/components/common/LabelError";
 import { Button } from "@/components/ui/button";
+import ButtonLoading from "@/components/ui/button-loading";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import { registerUser } from "@/lib/api/auth";
+import { handleApiError } from "@/lib/axios";
+import { UserRegisterPayloadType } from "@/types/auth";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useMutation } from "@tanstack/react-query";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from "sonner";
 import { z } from "zod";
 
 const RegistrationSchema = z
@@ -33,13 +39,34 @@ const Registration = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm<RegistrationType>({
     resolver: zodResolver(RegistrationSchema),
   });
+  const navigate = useNavigate();
 
-  const onSubmitRegistration: SubmitHandler<RegistrationType> = (data) => {
-    console.log(data);
+  const { mutateAsync } = useMutation({
+    mutationFn: registerUser,
+    onSuccess: () => {
+      toast.success("User registration success, please login");
+      navigate("/auth/login");
+    },
+    onError: (error) => {
+      const message = handleApiError(error);
+      toast.error(message);
+    },
+  });
+
+  const onSubmitRegistration: SubmitHandler<RegistrationType> = async (
+    data
+  ) => {
+    const { confirmPassword, contact, ...sendvalue } = data;
+    const payload: UserRegisterPayloadType = {
+      ...sendvalue,
+      phoneNumber: contact,
+    };
+
+    await mutateAsync({ ...payload });
   };
 
   return (
@@ -121,8 +148,9 @@ const Registration = () => {
           size="lg"
           type="submit"
           className="w-full cursor-pointer uppercase"
+          disabled={isSubmitting}
         >
-          Signup
+          {isSubmitting ? <ButtonLoading /> : "Signup"}
         </Button>
       </form>
 

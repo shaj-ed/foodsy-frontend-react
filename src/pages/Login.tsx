@@ -5,10 +5,14 @@ import { Button } from "@/components/ui/button";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Link } from "react-router-dom";
 import LabelError from "@/components/common/LabelError";
+import { useMutation } from "@tanstack/react-query";
+import { loginUser } from "@/lib/api/auth";
+import ButtonLoading from "@/components/ui/button-loading";
+import { toast } from "sonner";
 
 const LoginSchema = z.object({
-  email: z.string().email("Provide a valid email"),
-  password: z.string().min(1, "Password field required"),
+  username: z.string().nonempty("Username is required"),
+  password: z.string().nonempty("Password field required"),
 });
 
 type LoginType = z.infer<typeof LoginSchema>;
@@ -17,13 +21,23 @@ const Login = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm<LoginType>({
     resolver: zodResolver(LoginSchema),
   });
 
-  const onSubmitLogin: SubmitHandler<LoginType> = (data) => {
-    console.log(data);
+  const { mutateAsync, isError } = useMutation({
+    mutationFn: loginUser,
+    onSuccess: (values) => {
+      console.log(values);
+    },
+    onError: () => {
+      toast.error("Authentication failed, try again");
+    },
+  });
+
+  const onSubmitLogin: SubmitHandler<LoginType> = async (data) => {
+    await mutateAsync(data);
   };
 
   return (
@@ -33,16 +47,18 @@ const Login = () => {
       <form onSubmit={handleSubmit(onSubmitLogin)}>
         <div className="mb-4">
           <Input
+            type="text"
             className="py-5"
-            placeholder="Enter email.."
-            {...register("email")}
+            placeholder="Enter username.."
+            {...register("username")}
           />
 
-          <LabelError message={errors.email?.message} />
+          <LabelError message={errors.username?.message} />
         </div>
 
         <div className="mb-5">
           <Input
+            type="password"
             className="py-5"
             placeholder="Password"
             {...register("password")}
@@ -51,9 +67,19 @@ const Login = () => {
           <LabelError message={errors.password?.message} />
         </div>
 
+        {isError && (
+          <p className="text-red-500 text-sm font-semibold mb-2">
+            Authentication Failed, Try Again
+          </p>
+        )}
+
         <div className="flex justify-between items-center">
-          <Button size="lg" className="cursor-pointer uppercase">
-            Login
+          <Button
+            size="lg"
+            className="cursor-pointer uppercase"
+            disabled={isSubmitting}
+          >
+            {isSubmitting ? <ButtonLoading /> : "Login"}
           </Button>
 
           <Link
