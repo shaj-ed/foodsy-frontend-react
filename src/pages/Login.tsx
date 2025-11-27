@@ -3,12 +3,13 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import LabelError from "@/components/common/LabelError";
 import { useMutation } from "@tanstack/react-query";
-import { loginUser } from "@/lib/api/auth";
+import { currentUser, loginUser } from "@/lib/api/auth";
 import ButtonLoading from "@/components/ui/button-loading";
 import { toast } from "sonner";
+import { useAuthStore } from "@/store/authStore";
 
 const LoginSchema = z.object({
   username: z.string().nonempty("Username is required"),
@@ -18,6 +19,8 @@ const LoginSchema = z.object({
 type LoginType = z.infer<typeof LoginSchema>;
 
 const Login = () => {
+  const { setAccessToken, setUser } = useAuthStore.getState();
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -28,8 +31,18 @@ const Login = () => {
 
   const { mutateAsync, isError } = useMutation({
     mutationFn: loginUser,
-    onSuccess: (values) => {
-      console.log(values);
+    onSuccess: async (values) => {
+      setAccessToken(values.token);
+      const response = await currentUser();
+      const user = response.data;
+      setUser(user);
+
+      // Navigate
+      if (user.role === "ADMIN") {
+        navigate("/admin/dashboard");
+      } else {
+        navigate("/");
+      }
     },
     onError: () => {
       toast.error("Authentication failed, try again");

@@ -4,13 +4,14 @@ export type UserType = {
   email: string;
   phoneNumber?: string;
   address?: string;
+  role: string;
   createdAt: string;
   updatedAt: string;
 };
 
 export type UserRegisterPayloadType = Omit<
   UserType,
-  "id" | "createdAt" | "updatedAt"
+  "id" | "createdAt" | "updatedAt" | "role"
 > & {
   password: string;
 };
@@ -29,4 +30,9 @@ export type LoginResponse = {
   token: string;
   username: string;
   message: string;
+};
+
+export type CurrentUserResponse = {
+  message: string;
+  data: UserType;
 };

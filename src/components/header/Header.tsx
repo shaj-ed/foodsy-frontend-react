@@ -13,7 +13,7 @@ const Header = () => {
 
   return (
     <header className="w-full bg-slate-100">
-      <div className="px-2 md:px-6 py-4 max-w-screen-xl mx-auto flex items-center justify-between">
+      <div className="px-2 md:px-6 py-4 max-w-7xl mx-auto flex items-center justify-between">
         <Logo size="text-3xl" />
 
         <Nav viewClass="desktop-nav" />
@@ -24,7 +24,7 @@ const Header = () => {
           </div>
           <Link to="/cart" className="cursor-pointer relative">
             <ShoppingCart className="text-sky-800" />
-            <span className="top-[-10px] left-[14px] absolute w-6 h-6 bg-red-500 rounded-full text-white font-semibold center">
+            <span className="-top-2.5 left-3.5 absolute w-6 h-6 bg-red-500 rounded-full text-white font-semibold center">
               5+
             </span>
           </Link>

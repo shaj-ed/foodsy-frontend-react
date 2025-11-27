@@ -1,3 +1,4 @@
+import { useAuthStore } from "@/store/authStore";
 import axios, { AxiosError } from "axios";
 
 const apiBaseUrl = import.meta.env.VITE_BASE_API_URL_LOCAL;
@@ -9,7 +10,17 @@ export const api = axios.create({
   },
 });
 
-// TODO: add request interceptor
+const getAccessToken = () => useAuthStore.getState().accessToken;
+
+// Axios request interceptor
+api.interceptors.request.use((config) => {
+  const token = getAccessToken();
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+
+  return config;
+});
 
 // TODO: add response interceptor
 

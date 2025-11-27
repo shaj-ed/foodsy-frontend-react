@@ -1,3 +1,4 @@
+import { useAuthStore } from "@/store/authStore";
 import { UserRoundPlus } from "lucide-react";
 import { Link } from "react-router-dom";
 
@@ -6,6 +7,10 @@ type Props = {
 };
 
 const HeaderAuthButtons = ({ color }: Props) => {
+  const { isAuthenticated } = useAuthStore.getState();
+
+  if (isAuthenticated) return <></>;
+
   return (
     <>
       <div className="flex gap-1">

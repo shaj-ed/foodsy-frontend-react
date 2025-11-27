@@ -1,4 +1,3 @@
-import useAuth from "@/hooks/useAuth";
 import { useAuthStore } from "@/store/authStore";
 import { ReactNode } from "react";
 import { Navigate } from "react-router-dom";
@@ -8,10 +7,14 @@ type PublicRouteProps = {
 };
 
 const PublicRoute = ({ children }: PublicRouteProps) => {
-  const { isAuthenticated } = useAuthStore();
+  const { isAuthenticated, user } = useAuthStore();
+
+  if (isAuthenticated && user?.role === "ADMIN") {
+    return <Navigate to="/admin/dashboard" replace />;
+  }
 
   if (isAuthenticated) {
-    return <Navigate to="/" />;
+    return <Navigate to="/" replace />;
   }
 
   return <>{children}</>;
