@@ -15,6 +15,8 @@ const getAccessToken = () => useAuthStore.getState().accessToken;
 // Axios request interceptor
 api.interceptors.request.use((config) => {
   const token = getAccessToken();
+
+  config.withCredentials = true;
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
   }
