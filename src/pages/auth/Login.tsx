@@ -32,7 +32,7 @@ const Login = () => {
   const { mutateAsync, isError } = useMutation({
     mutationFn: loginUser,
     onSuccess: async (values) => {
-      setAccessToken(values.token);
+      setAccessToken(values.accessToken);
       const response = await currentUser();
       const user = response.data;
       setUser(user);
