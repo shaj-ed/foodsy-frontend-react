@@ -27,7 +27,8 @@ export type RegisterUserResponse = {
 };
 
 export type LoginResponse = {
-  token: string;
+  accessToken: string;
+  refreshToken: string;
   username: string;
   message: string;
 };
