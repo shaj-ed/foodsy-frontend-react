@@ -37,3 +37,7 @@ export type CurrentUserResponse = {
   message: string;
   data: UserType;
 };
+
+export type RefreshAccessTokenResponse = {
+  accessToken: string;
+};
