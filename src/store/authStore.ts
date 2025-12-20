@@ -1,4 +1,4 @@
-import { currentUser, refreshAccessToken } from "@/lib/api/auth";
+import { currentUser, logout, refreshAccessToken } from "@/lib/api/auth";
 import { UserType } from "@/types/auth";
 import { create } from "zustand";
 
@@ -10,6 +10,7 @@ export interface AuthState {
   isAuthenticated: boolean;
   isLoading: boolean;
   initializeAuth: () => void;
+  logout: () => void;
 }
 
 export const useAuthStore = create<AuthState>((set) => ({
@@ -52,6 +53,23 @@ export const useAuthStore = create<AuthState>((set) => ({
       });
     } finally {
       set({ isLoading: false });
+    }
+  },
+
+  logout: async () => {
+    try {
+      await logout();
+      set({
+        accessToken: null,
+        user: null,
+        isAuthenticated: false,
+      });
+    } catch (error) {
+      console.log(error);
+    } finally {
+      set({
+        isLoading: false,
+      });
     }
   },
 }));

@@ -12,6 +12,7 @@ const AUTH_REGISTER_ENDPOINT = "/auth/register";
 const AUTH_LOGIN_ENDPOINT = "/auth/login";
 const AUTH_CURRENT_USER_ENDPOINT = "/user/current-user";
 const AUTH_REFRESH_ACCESS_TOKEN = "/auth/refresh-token";
+const AUTH_LOGOUT = "/auth/logout";
 
 export const registerUser = async (
   payload: UserRegisterPayloadType
@@ -37,3 +38,7 @@ export const refreshAccessToken =
     const response = await api.post(AUTH_REFRESH_ACCESS_TOKEN);
     return response.data;
   };
+
+export const logout = async () => {
+  await api.post(AUTH_LOGOUT);
+};

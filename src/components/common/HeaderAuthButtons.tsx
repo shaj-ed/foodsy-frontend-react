@@ -7,7 +7,7 @@ type Props = {
 };
 
 const HeaderAuthButtons = ({ color }: Props) => {
-  const { isAuthenticated } = useAuthStore.getState();
+  const isAuthenticated = useAuthStore((s) => s.isAuthenticated);
 
   if (isAuthenticated) return <></>;
 
