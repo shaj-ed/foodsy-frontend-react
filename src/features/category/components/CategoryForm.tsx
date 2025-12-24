@@ -14,23 +14,56 @@ import {  CategoryFormValues, categorySchema, initCategoryFormValues,  } from ".
 import { zodResolver } from "@hookform/resolvers/zod"
 import RHFInput from "@/components/common/form/RHFInput"
 import { RHFFileUpload } from "@/components/common/form/RHFFileUpload"
+import { toast } from "sonner"
+import { useCreateCategory, useUpdateCategory } from "../hooks/category.query"
+import useCategoryStore from "../store/category.store"
+import { useEffect } from "react"
+import { base64ToFile } from "@/lib/file/fileUtils"
 
 const CategoryForm = () => {
    const {control, handleSubmit, formState: {isSubmitting}, reset} =  useForm<CategoryFormValues>({
       resolver: zodResolver(categorySchema),
       defaultValues: initCategoryFormValues
     })
+    const {mutateAsync: createCategory} = useCreateCategory()
+    const {mutateAsync: updateCategory} = useUpdateCategory()
+    const {openModal, setOpenModal, selectedCategory} = useCategoryStore()
 
     const onSubmit = async (values: CategoryFormValues) => {
-      console.log(values);
+      try {
+        toast.loading("Processing..")
+        if(selectedCategory) {
+          await updateCategory({id: selectedCategory.data.id, ...values})
+        } else {
+          await createCategory(values)
+        }
+        reset()
+      } catch (error) {
+        console.log(error)
+      } finally {
+        toast.dismiss()
+        setOpenModal(false)
+      }
     }
 
     const cancelForm = () => {
-      reset()
+      reset(initCategoryFormValues)
     }
 
+    useEffect(() => {
+      reset(initCategoryFormValues)
+
+      if(selectedCategory) {
+        const {data} = selectedCategory
+        let file = data.image ? base64ToFile(data.image, `${data.categoryName}.jpg`) : undefined
+        // const file: File = base64ToFile(data.image, `${data.categoryName}.jpg`)
+        reset({categoryName: data.categoryName, description: data.description, file})
+      }
+
+    }, [selectedCategory])
+
   return (
-    <Dialog>
+    <Dialog open={openModal} onOpenChange={setOpenModal}>
       <form onSubmit={handleSubmit(onSubmit)} id="categoryForm">
         <DialogTrigger asChild>
           <Button variant="default">+ Add Category</Button>
