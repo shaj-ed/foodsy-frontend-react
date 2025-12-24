@@ -9,6 +9,7 @@ type Props = {
 };
 
 const AdminHeader = ({ isOpenSidebar, toggleSidebar }: Props) => {
+  console.log(isOpenSidebar, toggleSidebar)
   return (
     <header className="fixed top-0 left-0 right-0 bg-gray-800 py-4 px-4 z-100">
       <nav className="flex items-center justify-between">

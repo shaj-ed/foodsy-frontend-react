@@ -11,7 +11,7 @@ type FilterFormType = {
 
 const FilterCard = () => {
   const defaultRange = [0, 2000];
-  const { register, handleSubmit, control, reset, watch } =
+  const { handleSubmit, control, reset, watch } =
     useForm<FilterFormType>({
       defaultValues: {
         priceRange: defaultRange,

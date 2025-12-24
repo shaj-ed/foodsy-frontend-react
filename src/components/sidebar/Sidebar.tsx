@@ -6,6 +6,7 @@ type Props = {
 };
 
 const Sidebar = ({ isOpenSidebar, toggleSidebar }: Props) => {
+  console.log(toggleSidebar)
   return (
     <aside
       className={`bg-slate-600 fixed top-16 bottom-0 w-64 border-r border-gray-200 ${

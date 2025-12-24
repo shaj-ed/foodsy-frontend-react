@@ -1,11 +1,6 @@
 import {
-  Calendar,
-  Home,
-  Inbox,
   LayoutDashboard,
   Logs,
-  Search,
-  Settings,
 } from "lucide-react";
 
 import {
@@ -13,12 +8,11 @@ import {
   SidebarContent,
   SidebarGroup,
   SidebarGroupContent,
-  SidebarGroupLabel,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
-import { Link, NavLink } from "react-router-dom";
+import {  NavLink } from "react-router-dom";
 
 // Menu items.
 const items = [

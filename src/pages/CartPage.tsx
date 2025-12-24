@@ -3,13 +3,7 @@ import SectionHeading from "@/components/common/section/SectionHeading";
 import pizzapasta from "@/assets/images/categories/pizzapasta.jpg";
 import {
   Minus,
-  MinusCircle,
-  MinusCircleIcon,
-  MinusIcon,
   Plus,
-  PlusCircle,
-  PlusCircleIcon,
-  PlusIcon,
   Trash,
 } from "lucide-react";
 

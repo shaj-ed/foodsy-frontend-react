@@ -1,7 +1,5 @@
-import React from "react";
 import SectionHeading from "../section/SectionHeading";
 import Products from "./Products";
-import { Separator } from "../../ui/separator";
 
 const FeaturedProduct = () => {
   return (
