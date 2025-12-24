@@ -1,7 +1,7 @@
 import FilterCard from "@/components/categories/FilterCard";
-import Products from "@/components/common/Products";
-import SectionContainer from "@/components/common/SectionContainer";
-import SectionHeading from "@/components/common/SectionHeading";
+import Products from "@/components/common/ui/Products";
+import SectionContainer from "@/components/common/section/SectionContainer";
+import SectionHeading from "@/components/common/section/SectionHeading";
 
 const CategoryDetail = () => {
   return (

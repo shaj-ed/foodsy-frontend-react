@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { Button } from "../ui/button";
 import { MoveRight } from "lucide-react";
-import SectionContainer from "../common/SectionContainer";
+import SectionContainer from "../common/section/SectionContainer";
 
 const Hero = () => {
   return (

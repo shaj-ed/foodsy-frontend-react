@@ -1,8 +1,7 @@
-import Logo from "../common/Logo";
+import Logo from "../common/ui/Logo";
 import Usermenu from "./Usermenu";
-import Notification from "../common/Notification";
-import { AlignLeft, AlignRight } from "lucide-react";
-import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
+import Notification from "../common/ui/Notification";
+import {  SidebarTrigger } from "@/components/ui/sidebar";
 
 type Props = {
   isOpenSidebar: boolean;

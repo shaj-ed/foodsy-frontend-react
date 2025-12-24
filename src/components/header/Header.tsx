@@ -1,6 +1,6 @@
-import Logo from "../common/Logo";
+import Logo from "../common/ui/Logo";
 import { Menu, ShoppingCart, X } from "lucide-react";
-import HeaderAuthButtons from "../common/HeaderAuthButtons";
+import HeaderAuthButtons from "../common/section/HeaderAuthButtons";
 import { useState } from "react";
 import Usermenu from "./Usermenu";
 import Nav from "./Nav";

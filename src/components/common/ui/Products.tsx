@@ -1,6 +1,6 @@
-import { Card, CardContent } from "../ui/card";
+import { Card, CardContent } from "../../ui/card";
 import { Star } from "lucide-react";
-import { Button } from "../ui/button";
+import { Button } from "../../ui/button";
 import { useNavigate } from "react-router-dom";
 
 const Products = () => {

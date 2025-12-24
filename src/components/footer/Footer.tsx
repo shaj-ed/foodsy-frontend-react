@@ -1,6 +1,6 @@
 import { Copyright } from "lucide-react";
-import Logo from "../common/Logo";
-import SectionContainer from "../common/SectionContainer";
+import Logo from "../common/ui/Logo";
+import SectionContainer from "../common/section/SectionContainer";
 import { Button } from "../ui/button";
 import { Separator } from "../ui/separator";
 

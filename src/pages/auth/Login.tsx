@@ -4,7 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Link, useNavigate } from "react-router-dom";
-import LabelError from "@/components/common/LabelError";
+import LabelError from "@/components/common/ui/LabelError";
 import { useMutation } from "@tanstack/react-query";
 import { currentUser, loginUser } from "@/lib/api/auth";
 import ButtonLoading from "@/components/ui/button-loading";
@@ -41,7 +41,7 @@ const Login = () => {
       if (user.role === "ADMIN") {
         navigate("/admin/dashboard");
       } else {
-        navigate("/");
+        navigate("/admin/dashboard"); // WILL BE CHANGE
       }
     },
     onError: () => {

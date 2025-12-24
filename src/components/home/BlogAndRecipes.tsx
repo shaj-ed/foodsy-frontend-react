@@ -1,4 +1,4 @@
-import SectionHeading from "../common/SectionHeading";
+import SectionHeading from "../common/section/SectionHeading";
 import {
   Card,
   CardContent,
@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "../ui/button";
-import SectionContainer from "../common/SectionContainer";
+import SectionContainer from "../common/section/SectionContainer";
 
 const BlogAndRecipes = () => {
   return (

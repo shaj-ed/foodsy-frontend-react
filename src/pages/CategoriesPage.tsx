@@ -1,6 +1,6 @@
 import CategoryCard from "@/components/categories/CategoryCard";
-import SectionContainer from "@/components/common/SectionContainer";
-import SectionHeading from "@/components/common/SectionHeading";
+import SectionContainer from "@/components/common/section/SectionContainer";
+import SectionHeading from "@/components/common/section/SectionHeading";
 import { topCategories } from "@/components/home/TopCategories";
 
 const CategoriesPage = () => {

@@ -5,9 +5,9 @@ import { Navigate } from "react-router-dom";
 const AdminProtectedRoute = ({ children }: { children: ReactNode }) => {
   const { isAuthenticated, user } = useAuthStore();
 
-  if (!isAuthenticated || user?.role !== "ADMIN") {
-    return <Navigate to="/auth/login" replace />;
-  }
+  // if (!isAuthenticated || user?.role !== "ADMIN") {
+  //   return <Navigate to="/auth/login" replace />;
+  // }
 
   return <>{children}</>;
 };

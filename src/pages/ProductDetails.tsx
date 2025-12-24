@@ -1,8 +1,8 @@
-import SectionContainer from "@/components/common/SectionContainer";
+import SectionContainer from "@/components/common/section/SectionContainer";
 import fastfood from "@/assets/images/categories/fastfood.jpg";
 import { Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import FeaturedProduct from "@/components/common/FeaturedProduct";
+import FeaturedProduct from "@/components/common/ui/FeaturedProduct";
 
 const ProductDetails = () => {
   return (

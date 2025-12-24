@@ -5,8 +5,8 @@ import pizzaPasta from "@/assets/images/categories/pizzapasta.jpg";
 import seafood from "@/assets/images/categories/seafood.jpg";
 import { url } from "inspector";
 import { Link } from "react-router-dom";
-import SectionHeading from "../common/SectionHeading";
-import SectionContainer from "../common/SectionContainer";
+import SectionHeading from "../common/section/SectionHeading";
+import SectionContainer from "../common/section/SectionContainer";
 import CategoryCard from "../categories/CategoryCard";
 
 export const topCategories = [

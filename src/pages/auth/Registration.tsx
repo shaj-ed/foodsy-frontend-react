@@ -1,4 +1,4 @@
-import LabelError from "@/components/common/LabelError";
+import LabelError from "@/components/common/ui/LabelError";
 import { Button } from "@/components/ui/button";
 import ButtonLoading from "@/components/ui/button-loading";
 import { Input } from "@/components/ui/input";

@@ -1,5 +1,5 @@
-import SectionContainer from "@/components/common/SectionContainer";
-import SectionHeading from "@/components/common/SectionHeading";
+import SectionContainer from "@/components/common/section/SectionContainer";
+import SectionHeading from "@/components/common/section/SectionHeading";
 import pizzapasta from "@/assets/images/categories/pizzapasta.jpg";
 import {
   Minus,
