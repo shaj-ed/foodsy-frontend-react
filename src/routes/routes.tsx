@@ -1,37 +1,38 @@
-import RootLayout from "@/layout/RootLayout";
-import AccountPage from "@/pages/AccountPage";
-import CartPage from "@/pages/CartPage";
-import { Home } from "@/pages/Home";
-import ProductDetails from "@/pages/ProductDetails";
-import ProductsPage from "@/pages/ProductsPage";
-import { createBrowserRouter, Navigate } from "react-router-dom";
-import ProtectedRoute from "./ProtectedRoute";
-import AuthLayout from "@/layout/AuthLayout";
-import Login from "@/pages/auth/Login";
-import Registration from "@/pages/auth/Registration";
-import PublicRoute from "./PublicRoute";
-import ForgotPassword from "@/pages/auth/ForgotPassword";
-import ResetPassword from "@/pages/auth/ResetPassword";
-import CategoriesPage from "@/pages/CategoriesPage";
-import CategoryDetail from "@/pages/CategoryDetail";
-import AdminLayout from "@/layout/AdminLayout";
-import AdminDashboard from "@/pages/admin/AdminDashboard";
-import AdminProtectedRoute from "./AdminProtectedRoute";
-import CategoryAdmin from "@/pages/admin/CategoryAdmin";
+import RootLayout from '@/layout/RootLayout';
+import AccountPage from '@/pages/AccountPage';
+import CartPage from '@/pages/CartPage';
+import { Home } from '@/pages/Home';
+import ProductDetails from '@/pages/ProductDetails';
+import ProductsPage from '@/pages/ProductsPage';
+import { createBrowserRouter, Navigate } from 'react-router-dom';
+import ProtectedRoute from './ProtectedRoute';
+import AuthLayout from '@/layout/AuthLayout';
+import Login from '@/pages/auth/Login';
+import Registration from '@/pages/auth/Registration';
+import PublicRoute from './PublicRoute';
+import ForgotPassword from '@/pages/auth/ForgotPassword';
+import ResetPassword from '@/pages/auth/ResetPassword';
+import CategoriesPage from '@/pages/CategoriesPage';
+import CategoryDetail from '@/pages/CategoryDetail';
+import AdminLayout from '@/layout/AdminLayout';
+import AdminDashboard from '@/pages/admin/AdminDashboard';
+import AdminProtectedRoute from './AdminProtectedRoute';
+import CategoryAdmin from '@/pages/admin/CategoryAdmin';
+import MenuAdmin from '@/pages/admin/MenuAdmin';
 
 export const routes = createBrowserRouter([
   {
-    path: "/",
+    path: '/',
     element: <RootLayout />,
     children: [
       { index: true, element: <Home /> },
-      { path: "products", element: <ProductsPage /> },
-      { path: "categories", element: <CategoriesPage /> },
-      { path: "categories/:id", element: <CategoryDetail /> },
-      { path: "products/:id", element: <ProductDetails /> },
-      { path: "cart", element: <CartPage /> },
+      { path: 'products', element: <ProductsPage /> },
+      { path: 'categories', element: <CategoriesPage /> },
+      { path: 'categories/:id', element: <CategoryDetail /> },
+      { path: 'products/:id', element: <ProductDetails /> },
+      { path: 'cart', element: <CartPage /> },
       {
-        path: "account",
+        path: 'account',
         element: (
           <ProtectedRoute>
             <AccountPage />
@@ -42,12 +43,12 @@ export const routes = createBrowserRouter([
   },
   // Auth layout
   {
-    path: "/auth",
+    path: '/auth',
     element: <AuthLayout />,
     children: [
       { index: true, element: <Navigate to="login" replace /> },
       {
-        path: "login",
+        path: 'login',
         element: (
           <PublicRoute>
             <Login />
@@ -55,7 +56,7 @@ export const routes = createBrowserRouter([
         ),
       },
       {
-        path: "registration",
+        path: 'registration',
         element: (
           <PublicRoute>
             <Registration />
@@ -63,7 +64,7 @@ export const routes = createBrowserRouter([
         ),
       },
       {
-        path: "forgot-password",
+        path: 'forgot-password',
         element: (
           <PublicRoute>
             <ForgotPassword />
@@ -71,7 +72,7 @@ export const routes = createBrowserRouter([
         ),
       },
       {
-        path: "reset-password",
+        path: 'reset-password',
         element: (
           <PublicRoute>
             <ResetPassword />
@@ -83,7 +84,7 @@ export const routes = createBrowserRouter([
 
   // Admin Layout
   {
-    path: "/admin",
+    path: '/admin',
     element: (
       <AdminProtectedRoute>
         <AdminLayout />
@@ -92,12 +93,16 @@ export const routes = createBrowserRouter([
     children: [
       { index: true, element: <Navigate to="dashboard" replace /> },
       {
-        path: "dashboard",
+        path: 'dashboard',
         element: <AdminDashboard />,
       },
       {
-        path: "category",
+        path: 'category',
         element: <CategoryAdmin />,
+      },
+      {
+        path: 'menu',
+        element: <MenuAdmin />,
       },
     ],
   },

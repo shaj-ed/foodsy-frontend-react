@@ -20,7 +20,6 @@ export const getCategoryById = async (id: number): Promise<CategoryResponse> => 
 };
 
 export const addCategory = async (payload: AddCategoryPayload): Promise<AddCatgoryResponse> => {
-  console.log(payload);
   const { data } = await api.post<AddCatgoryResponse>(CATEGORY_API_URL, payload);
   return data;
 };
