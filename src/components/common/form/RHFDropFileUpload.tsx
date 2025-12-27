@@ -8,6 +8,7 @@ type RHFDropFileUploadProps<T extends FieldValues> = {
   control: Control<T>;
   label: string;
   text?: string;
+  multiple?: boolean;
 };
 
 const RHFDropFileUpload = <T extends FieldValues>({
@@ -15,36 +16,45 @@ const RHFDropFileUpload = <T extends FieldValues>({
   control,
   label,
   text = 'Drag and drop image',
+  multiple = false,
 }: RHFDropFileUploadProps<T>) => {
-  const file = useWatch({ control, name });
-  const [preview, setPreview] = useState<string | null>(null);
+  const files = useWatch({ control, name }) as File[] | File | undefined;
+  const [previews, setPreviews] = useState<string[]>([]);
 
   useEffect(() => {
-    if (!(file instanceof File)) {
-      setPreview(null);
-      return;
+    let fileArray: File[] = [];
+
+    if (Array.isArray(files)) {
+      fileArray = files;
+    } else if (files instanceof File) {
+      fileArray = [files];
     }
 
-    const url = URL.createObjectURL(file);
-    setPreview(url);
+    const urls = fileArray.map((file) => URL.createObjectURL(file));
+    console.log(urls);
+    setPreviews(urls);
 
-    return () => URL.revokeObjectURL(url);
-  }, [file]);
+    return () => urls.forEach((url) => URL.revokeObjectURL(url));
+  }, [files]);
 
   return (
     <Controller
       name={name}
       control={control}
       render={({ field, fieldState }) => {
-        const { onChange } = field;
+        const { onChange, value } = field;
         const { error, invalid } = fieldState;
 
         const { getRootProps, getInputProps } = useDropzone({
           accept: { 'image/*': [] },
-          multiple: false,
-          onDrop: (files) => {
-            const file = files[0];
-            if (file) onChange(file);
+          multiple,
+          onDrop: (droppedFiles) => {
+            if (multiple) {
+              const existingFiles = Array.isArray(value) ? value : [];
+              onChange([...existingFiles, ...droppedFiles]);
+            } else {
+              onChange(droppedFiles[0]); // single file
+            }
           },
         });
 
@@ -60,8 +70,17 @@ const RHFDropFileUpload = <T extends FieldValues>({
               <p className="text-center text-base">{text}</p>
             </div>
 
-            {preview && (
-              <img src={preview} alt="preview" className="mt-4 w-[150px] rounded object-cover" />
+            {previews.length > 0 && (
+              <div className="mt-4 flex flex-wrap gap-4">
+                {previews.map((src, idx) => (
+                  <img
+                    key={idx}
+                    src={src}
+                    alt={`preview-${idx}`}
+                    className="w-[150px] rounded object-cover"
+                  />
+                ))}
+              </div>
             )}
 
             {invalid && error && <FieldError errors={[error]} className="text-start" />}
