@@ -45,7 +45,7 @@ export const useUpdateCategory = () => {
     mutationFn: updateCategory,
     onSuccess: async (response, variables) => {
       try {
-        await uploadCategoryImage(response.data.id, variables.file);
+        await uploadCategoryImage(response.data.id, variables.file, 'PUT');
       } catch (error) {
         console.log(error);
         toast.error('Category created not image, contact support');

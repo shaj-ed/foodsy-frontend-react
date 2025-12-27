@@ -30,14 +30,24 @@ export const updateCategory = async (payload: UpdateCategoryPayload): Promise<Ca
   return data;
 };
 
-export const uploadCategoryImage = async (id: number, file: File) => {
+export const uploadCategoryImage = async (
+  id: number,
+  file: File,
+  method: 'POST' | 'PUT' = 'POST'
+) => {
   const formData = new FormData();
   formData.append('file', file);
-  await api.post(`${CATEGORY_API_URL}/${id}/upload`, formData, {
-    headers: {
-      'Content-Type': 'multipart/form-data',
-    },
-  });
+  method === 'POST'
+    ? await api.post(`${CATEGORY_API_URL}/${id}/upload`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      })
+    : await api.put(`${CATEGORY_API_URL}/${id}/upload`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
 };
 
 export const deleteCategoryById = async (id: number): Promise<void> => {
