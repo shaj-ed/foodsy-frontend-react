@@ -1,4 +1,4 @@
-import { z } from "zod";
+import { z } from 'zod';
 
 export const createFileSchema = (
   requiredMessage: string,
@@ -15,9 +15,20 @@ export const createFileSchema = (
       message: `File size should be less than ${maxSizeMB}MB`,
     })
     .refine((file) => file && allowedTypes.includes(file.type), {
-      message: `Only ${allowedTypes
-        .map((t) => t.split("/")[1])
-        .join(", ")} files are allowed`,
+      message: `Only ${allowedTypes.map((t) => t.split('/')[1]).join(', ')} files are allowed`,
     })
     .transform((file) => file as File);
+};
+
+export const createMultipleFilesSchema = (
+  requiredMessage: string,
+  allowedTypes: string[],
+  maxSizeMB = 1,
+  minFiles = 1,
+  maxFiles = 5
+) => {
+  return z
+    .array(createFileSchema(requiredMessage, allowedTypes, maxSizeMB))
+    .min(minFiles, { message: `At least ${minFiles} file is required` })
+    .max(maxFiles, { message: `Maximum ${maxFiles} files are allowed` });
 };
