@@ -12,8 +12,15 @@ export type MenuResponseList = MenuPayload & {
   createdAt: string;
 };
 
+export type UpdateMenuPayload = Omit<MenuResponseList, 'createdAt'>;
+
 export type MenuListWithPagination = {
   data: MenuResponseList[];
   success: boolean;
   pagination: PaginationResponse;
+};
+
+export type UpdateMenuResponse = {
+  data: MenuResponseList;
+  message: string;
 };

@@ -1,5 +1,10 @@
 import { api } from '@/lib/axios';
-import { MenuListWithPagination, MenuPayload, MenuResponseList } from '../types/menu.type';
+import {
+  MenuListWithPagination,
+  MenuPayload,
+  MenuResponseList,
+  UpdateMenuResponse,
+} from '../types/menu.type';
 
 export const MENU_API_URL = '/product';
 
@@ -26,4 +31,23 @@ export const uploadMenuFiles = async (id: number, files: File[]) => {
       'Content-Type': 'multipart/form-data',
     },
   });
+};
+
+export const getMenuById = async (id: number): Promise<{ data: MenuResponseList }> => {
+  const { data } = await api.get(`${MENU_API_URL}/${id}`);
+  return data;
+};
+
+export const getMenuImagesById = async (id: number): Promise<{ data: string[] }> => {
+  const { data } = await api.get(`${MENU_API_URL}/${id}/images`);
+  return data;
+};
+
+export const updateMenu = async (id: number, payload: MenuPayload): Promise<UpdateMenuResponse> => {
+  const { data } = await api.put(`${MENU_API_URL}/${id}`, payload);
+  return data;
+};
+
+export const deleteMenuById = async (id: number): Promise<void> => {
+  await api.delete(`${MENU_API_URL}/${id}`);
 };

@@ -16,11 +16,13 @@ import RHFInput from '@/components/common/form/RHFInput';
 import { useCategoryOptions } from '@/hooks/list/useOptionsList';
 import RHFSelect from '@/components/common/form/RHFSelect';
 import RHFDropFileUpload from '@/components/common/form/RHFDropFileUpload';
-import { useAddMenu } from '../hooks/menu.query';
+import { useAddMenu, useUpdateMenu } from '../hooks/menu.query';
 import { toast } from 'sonner';
+import { useEffect } from 'react';
+import { getValueById } from '@/lib/helpers/array.helper';
 
 const MenuForm = () => {
-  const { openModal, setOpenModal } = useMenuStore();
+  const { openModal, setOpenModal, selectedMenu, selectedMenuFiles } = useMenuStore();
   const {
     control,
     handleSubmit,
@@ -33,13 +35,18 @@ const MenuForm = () => {
   });
   const categoryOptions = useCategoryOptions();
   const { mutateAsync: addMenu } = useAddMenu();
+  const { mutateAsync: updateMenu } = useUpdateMenu();
 
   const onSubmit = async (data: MenuFormType) => {
     try {
       toast.loading('Processing..');
       const { categoryName, categoryId, ...payload } = data;
       const sendvalues = { categoryId: data.categoryId!, ...payload };
-      await addMenu(sendvalues);
+      if (selectedMenu) {
+        await updateMenu({ id: selectedMenu.id, ...sendvalues });
+      } else {
+        await addMenu(sendvalues);
+      }
       reset();
     } catch (error) {
       console.log(error);
@@ -50,8 +57,22 @@ const MenuForm = () => {
   };
 
   const cancelForm = () => {
-    reset();
+    reset(initMenuFormValues);
   };
+
+  useEffect(() => {
+    reset(initMenuFormValues);
+    if (selectedMenu && selectedMenuFiles) {
+      reset({
+        productName: selectedMenu.productName,
+        description: selectedMenu.description,
+        price: selectedMenu.price,
+        categoryId: selectedMenu.categoryId,
+        categoryName: getValueById(categoryOptions, selectedMenu.categoryId, 'label'),
+        files: selectedMenuFiles,
+      });
+    }
+  }, [selectedMenu, selectedMenuFiles]);
 
   return (
     <Dialog open={openModal} onOpenChange={setOpenModal}>

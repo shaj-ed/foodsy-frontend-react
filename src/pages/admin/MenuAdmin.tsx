@@ -3,7 +3,7 @@ import MenuList from '@/features/food-menu/components/MenuList';
 
 const MenuAdmin = () => {
   return (
-    <section>
+    <section className="w-full">
       <h2 className="text-xl font-semibold mb-5">Food Menu</h2>
 
       <MenuHeader />
