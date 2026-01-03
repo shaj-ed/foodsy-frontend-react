@@ -2,6 +2,8 @@ import ContentError from '@/components/common/ui/ContentError';
 import { useMenuList } from '../hooks/menu.query';
 import ContentLoading from '@/components/common/ui/ContentLoading';
 import AlertOneLiner from '@/components/common/ui/AlertOneLiner';
+import DataTable from '@/components/common/table/DataTable';
+import { menuColumns } from '../columns/menu-columns';
 
 const MenuList = () => {
   const { data, isLoading, error } = useMenuList(0, 10);
@@ -14,9 +16,9 @@ const MenuList = () => {
 
   return (
     <section className="mt-6">
-      {data.data.map((menu) => (
-        <p>{menu.productName}</p>
-      ))}
+      <div className="w-full">
+        <DataTable data={data.data} columns={menuColumns} />
+      </div>
     </section>
   );
 };
