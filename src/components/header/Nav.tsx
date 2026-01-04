@@ -3,9 +3,9 @@ import {
   NavigationMenuItem,
   NavigationMenuList,
   NavigationMenuLink,
-} from "@/components/ui/navigation-menu";
-import { Link } from "react-router-dom";
-import CategoryDropdown from "./CategoryDropdown";
+} from '@/components/ui/navigation-menu';
+import { Link } from 'react-router-dom';
+import CategoryDropdown from './CategoryDropdown';
 
 type NavProps = {
   viewClass: string;
@@ -17,7 +17,7 @@ const Nav = ({ viewClass }: NavProps) => {
       <NavigationMenuList className="flex-col items-start md:items-center md:flex-row">
         {/* Home */}
         <NavigationMenuItem>
-          <Link to="/docs">
+          <Link to="/">
             <NavigationMenuLink className="font-medium text-white md:text-black">
               Homepage
             </NavigationMenuLink>

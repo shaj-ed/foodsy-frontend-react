@@ -1,50 +1,32 @@
 /* eslint-disable react-refresh/only-export-components */
-import fastFood from "@/assets/images/categories/fastfood.jpg";
-import noodlesAndAsia from "@/assets/images/categories/noodlesandasia.jpg";
-import pizzaPasta from "@/assets/images/categories/pizzapasta.jpg";
-import seafood from "@/assets/images/categories/seafood.jpg";
-import SectionHeading from "../common/section/SectionHeading";
-import SectionContainer from "../common/section/SectionContainer";
-import CategoryCard from "../categories/CategoryCard";
-
-export const topCategories = [
-  {
-    id: 1,
-    title: "Fast Food",
-    description: "Burgers, Fries, Fried Chicken, Sandwiches",
-    src: fastFood,
-  },
-  {
-    id: 2,
-    title: "Noodles And Asian",
-    description: "Ramen, Chow Mein, Sushi, Dumplings",
-    src: noodlesAndAsia,
-  },
-  {
-    id: 3,
-    title: "Pizza & Pasta",
-    description: "Classic Pizzas, Pasta Dishes, Garlic Bread",
-    src: pizzaPasta,
-  },
-  {
-    id: 4,
-    title: "Seafood",
-    description: "Fish & Chips, Shrimp, Sushi, Lobster",
-    src: seafood,
-  },
-];
+import SectionHeading from '../common/section/SectionHeading';
+import SectionContainer from '../common/section/SectionContainer';
+import CategoryCard from '../categories/CategoryCard';
+import { useCategoryList } from '@/features/category/hooks/category.query';
+import { Suspense } from 'react';
+import CategorySkeleton from '@/features/category/components/CategorySkeleton';
 
 const TopCategories = () => {
   return (
     <SectionContainer className="mt-12">
       <SectionHeading headline="Top Categories" />
 
-      <div className="mt-6 grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-4">
-        {topCategories.map((category) => {
-          return <CategoryCard category={category} />;
-        })}
-      </div>
+      <Suspense fallback={<CategorySkeleton />}>
+        <TopCategoryContent />
+      </Suspense>
     </SectionContainer>
+  );
+};
+
+export const TopCategoryContent = () => {
+  const { data } = useCategoryList();
+
+  return (
+    <div className="mt-6 grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-4">
+      {data.map((category) => {
+        return <CategoryCard key={category.id} category={category} />;
+      })}
+    </div>
   );
 };
 

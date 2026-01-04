@@ -1,4 +1,4 @@
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
 import {
   addCategory,
   deleteCategoryById,
@@ -15,7 +15,7 @@ import {
 import { toast } from 'sonner';
 
 export const useCategoryList = () => {
-  return useQuery({
+  return useSuspenseQuery({
     queryKey: ['categories'],
     queryFn: getCategoryList,
   });

@@ -1,5 +1,3 @@
-import { LayoutDashboard, Logs } from 'lucide-react';
-
 import {
   Sidebar,
   SidebarContent,

@@ -1,22 +1,29 @@
-import { Link } from "react-router-dom";
+import { CategoryListResponse } from '@/features/category/types/category.type';
+import { getMimeTypeFromBase64 } from '@/lib/helpers/file.helper';
+import { Link } from 'react-router-dom';
 
 type CategoryProps = {
-  category: { id: number; src: string; title: string; description: string };
+  category: CategoryListResponse;
 };
 
 const CategoryCard = ({ category }: CategoryProps) => {
+  const { id, categoryName, description, image } = category;
+  const mimeType = getMimeTypeFromBase64(image);
+
   return (
     <Link
-      to={`/products`}
+      to={`/products/${id}`}
       className="rounded overflow-hidden transition-all hover:opacity-85 hover:bg-sky-100"
     >
       <img
-        src={category.src}
+        src={`data:${mimeType};base64,${image}`}
         className="w-100 h-40 object-cover rounded border-2 border-sky-500"
-        alt={category.title}
+        alt={categoryName}
       />
-      <h4 className="font-medium mt-2 px-2">{category.title}</h4>
-      <p className="text-sm px-2 pb-2">{category.description}</p>
+      <h4 className="font-medium mt-2 px-2">{categoryName}</h4>
+      <p className="text-sm px-2 pb-2">
+        {description.length > 50 ? `${description.slice(0, 50)}...` : description}
+      </p>
     </Link>
   );
 };

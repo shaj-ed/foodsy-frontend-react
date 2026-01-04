@@ -1,19 +1,18 @@
-import CategoryCard from "@/components/categories/CategoryCard";
-import SectionContainer from "@/components/common/section/SectionContainer";
-import SectionHeading from "@/components/common/section/SectionHeading";
-import { topCategories } from "@/components/home/TopCategories";
+import SectionContainer from '@/components/common/section/SectionContainer';
+import SectionHeading from '@/components/common/section/SectionHeading';
+import { TopCategoryContent } from '@/components/home/TopCategories';
+import CategorySkeleton from '@/features/category/components/CategorySkeleton';
+import { Suspense } from 'react';
 
 const CategoriesPage = () => {
   return (
-    <SectionContainer>
+    <SectionContainer className="h-screen">
       <div className="my-10">
         <SectionHeading headline="Categories" />
 
-        <div className="mt-6 grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-4">
-          {topCategories.map((category) => (
-            <CategoryCard category={category} />
-          ))}
-        </div>
+        <Suspense fallback={<CategorySkeleton />}>
+          <TopCategoryContent />
+        </Suspense>
       </div>
     </SectionContainer>
   );
