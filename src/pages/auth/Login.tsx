@@ -1,19 +1,19 @@
-import { z } from "zod";
-import { useForm, SubmitHandler } from "react-hook-form";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { Link, useNavigate } from "react-router-dom";
-import LabelError from "@/components/common/ui/LabelError";
-import { useMutation } from "@tanstack/react-query";
-import { currentUser, loginUser } from "@/lib/api/auth";
-import ButtonLoading from "@/components/ui/button-loading";
-import { toast } from "sonner";
-import { useAuthStore } from "@/store/authStore";
+import { z } from 'zod';
+import { useForm, SubmitHandler } from 'react-hook-form';
+import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { Link, useNavigate } from 'react-router-dom';
+import LabelError from '@/components/common/ui/LabelError';
+import { useMutation } from '@tanstack/react-query';
+import { currentUser, loginUser } from '@/lib/api/auth';
+import ButtonLoading from '@/components/ui/button-loading';
+import { toast } from 'sonner';
+import { useAuthStore } from '@/store/authStore';
 
 const LoginSchema = z.object({
-  username: z.string().nonempty("Username is required"),
-  password: z.string().nonempty("Password field required"),
+  username: z.string().nonempty('Username is required'),
+  password: z.string().nonempty('Password field required'),
 });
 
 type LoginType = z.infer<typeof LoginSchema>;
@@ -38,14 +38,14 @@ const Login = () => {
       setUser(user);
 
       // Navigate
-      if (user.role === "ADMIN") {
-        navigate("/admin/dashboard");
+      if (user.role === 'ADMIN') {
+        navigate('/admin/dashboard');
       } else {
-        navigate("/admin/dashboard"); // WILL BE CHANGE
+        navigate('/');
       }
     },
     onError: () => {
-      toast.error("Authentication failed, try again");
+      toast.error('Authentication failed, try again');
     },
   });
 
@@ -63,7 +63,7 @@ const Login = () => {
             type="text"
             className="py-5"
             placeholder="Enter username.."
-            {...register("username")}
+            {...register('username')}
           />
 
           <LabelError message={errors.username?.message} />
@@ -74,7 +74,7 @@ const Login = () => {
             type="password"
             className="py-5"
             placeholder="Password"
-            {...register("password")}
+            {...register('password')}
           />
 
           <LabelError message={errors.password?.message} />
@@ -87,12 +87,8 @@ const Login = () => {
         )}
 
         <div className="flex justify-between items-center">
-          <Button
-            size="lg"
-            className="cursor-pointer uppercase"
-            disabled={isSubmitting}
-          >
-            {isSubmitting ? <ButtonLoading /> : "Login"}
+          <Button size="lg" className="cursor-pointer uppercase" disabled={isSubmitting}>
+            {isSubmitting ? <ButtonLoading /> : 'Login'}
           </Button>
 
           <Link
