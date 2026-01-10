@@ -6,6 +6,8 @@ import {
 } from '@/components/ui/navigation-menu';
 import { Link } from 'react-router-dom';
 import CategoryDropdown from './CategoryDropdown';
+import { Suspense } from 'react';
+import { ErrorBoundary } from 'react-error-boundary';
 
 type NavProps = {
   viewClass: string;
@@ -25,7 +27,11 @@ const Nav = ({ viewClass }: NavProps) => {
         </NavigationMenuItem>
         {/* Category */}
         <NavigationMenuItem className="hidden md:block">
-          <CategoryDropdown />
+          <ErrorBoundary fallbackRender={({}) => <div></div>}>
+            <Suspense fallback={<div></div>}>
+              <CategoryDropdown />
+            </Suspense>
+          </ErrorBoundary>
         </NavigationMenuItem>
         <NavigationMenuItem className="md:hidden">
           <Link to="/categories">

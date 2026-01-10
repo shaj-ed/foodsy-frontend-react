@@ -8,9 +8,14 @@ import {
 
 export const MENU_API_URL = '/product';
 
-export const getMenuList = async (page: number, limit: number): Promise<MenuListWithPagination> => {
+export const getMenuList = async (
+  page: number,
+  limit: number,
+  categoryId?: number
+): Promise<MenuListWithPagination> => {
+  console.log('from axios', categoryId);
   const { data } = await api.get<MenuListWithPagination>(MENU_API_URL, {
-    params: { page, limit },
+    params: { page, limit, categoryId },
   });
   return data;
 };

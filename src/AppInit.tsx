@@ -1,6 +1,6 @@
-import { ReactNode, useEffect, useRef } from "react";
-import { useAuthStore } from "./store/authStore";
-import SplashScreen from "./components/ui/splash-screen";
+import { ReactNode, useEffect, useRef } from 'react';
+import { useAuthStore } from './store/authStore';
+import SplashScreen from './components/ui/splash-screen';
 
 type AppInitProps = {
   children: ReactNode;

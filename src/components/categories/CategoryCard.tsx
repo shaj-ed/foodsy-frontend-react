@@ -12,7 +12,7 @@ const CategoryCard = ({ category }: CategoryProps) => {
 
   return (
     <Link
-      to={`/products/${id}`}
+      to={`/products?categoryId=${id}`}
       className="rounded overflow-hidden transition-all hover:opacity-85 hover:bg-sky-100"
     >
       <img

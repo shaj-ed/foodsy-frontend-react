@@ -8,10 +8,10 @@ import {
 } from '../types/menu.type';
 import { toast } from 'sonner';
 
-export const useMenuList = (page: number, limit: number) => {
+export const useMenuList = (page: number, limit: number, categoryId?: number) => {
   return useQuery({
-    queryKey: ['menus', { page, limit }],
-    queryFn: () => getMenuList(page, limit),
+    queryKey: ['menus', { page, limit, categoryId }],
+    queryFn: () => getMenuList(page, limit, categoryId),
   });
 };
 

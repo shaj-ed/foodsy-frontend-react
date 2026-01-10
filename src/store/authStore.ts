@@ -1,6 +1,6 @@
-import { currentUser, logout, refreshAccessToken } from "@/lib/api/auth";
-import { UserType } from "@/types/auth";
-import { create } from "zustand";
+import { currentUser, logout, refreshAccessToken } from '@/lib/api/auth';
+import { UserType } from '@/types/auth';
+import { create } from 'zustand';
 
 export interface AuthState {
   accessToken: string | null;
