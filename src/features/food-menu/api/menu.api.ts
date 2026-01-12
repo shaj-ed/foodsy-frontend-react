@@ -1,5 +1,6 @@
 import { api } from '@/lib/axios';
 import {
+  MenuFilter,
   MenuListWithPagination,
   MenuPayload,
   MenuResponseList,
@@ -11,11 +12,11 @@ export const MENU_API_URL = '/product';
 export const getMenuList = async (
   page: number,
   limit: number,
-  categoryId?: number
+  categoryId?: number,
+  filters?: MenuFilter
 ): Promise<MenuListWithPagination> => {
-  console.log('from axios', categoryId);
   const { data } = await api.get<MenuListWithPagination>(MENU_API_URL, {
-    params: { page, limit, categoryId },
+    params: { page, limit, categoryId, ...filters },
   });
   return data;
 };

@@ -1,6 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { addMenu, deleteMenuById, getMenuList, updateMenu, uploadMenuFiles } from '../api/menu.api';
 import {
+  MenuFilter,
   MenuPayload,
   MenuResponseList,
   UpdateMenuPayload,
@@ -8,10 +9,15 @@ import {
 } from '../types/menu.type';
 import { toast } from 'sonner';
 
-export const useMenuList = (page: number, limit: number, categoryId?: number) => {
+export const useMenuList = (
+  page: number,
+  limit: number,
+  categoryId?: number,
+  filters?: MenuFilter
+) => {
   return useQuery({
-    queryKey: ['menus', { page, limit, categoryId }],
-    queryFn: () => getMenuList(page, limit, categoryId),
+    queryKey: ['menus', { page, limit, categoryId, filters }],
+    queryFn: () => getMenuList(page, limit, categoryId, filters),
   });
 };
 

@@ -3,13 +3,22 @@ import { useMenuList } from '@/features/food-menu/hooks/menu.query';
 import CardSkeleton from './CardSkeleton';
 import MenuCard from '@/features/food-menu/components/MenuCard';
 import AlertOneLiner from './AlertOneLiner';
+import { MenuFilter } from '@/features/food-menu/types/menu.type';
 
-const Products = () => {
+type ProductsProps = {
+  filterMenu: MenuFilter;
+};
+
+const Products = ({ filterMenu }: ProductsProps) => {
   const [searchParams] = useSearchParams();
 
   const categoryId = searchParams.get('categoryId');
-  console.log(categoryId);
-  const { data, isLoading } = useMenuList(0, 10, categoryId ? Number(categoryId) : undefined);
+  const { data, isLoading } = useMenuList(
+    0,
+    10,
+    categoryId ? Number(categoryId) : undefined,
+    filterMenu
+  );
 
   if (isLoading)
     return (

@@ -9,7 +9,7 @@ interface MenuStore {
 
   setSearchTerm: (v: string) => void;
   setOpenModal: (v: boolean) => void;
-  setSelectedMenu: (v: MenuResponseList) => void;
+  setSelectedMenu: (v: MenuResponseList | null) => void;
   clearSelected: () => void;
   setSelectedMenuFiles: (v: File[]) => void;
 }
@@ -38,6 +38,7 @@ const useMenuStore = create<MenuStore>((set) => ({
   clearSelected: () => {
     set({
       selectedMenu: null,
+      selectedMenuFiles: null,
     });
   },
   setSelectedMenuFiles: (v) => {

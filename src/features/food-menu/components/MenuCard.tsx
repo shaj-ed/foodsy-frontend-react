@@ -3,6 +3,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Star } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { MenuResponseList } from '../types/menu.type';
+import { getMimeTypeFromBase64 } from '@/lib/helpers/file.helper';
 
 type MenuCardProps = {
   menu: MenuResponseList;
@@ -14,10 +15,16 @@ const MenuCard = ({ menu }: MenuCardProps) => {
     navigate(`/products/${id}`);
   };
 
+  const mimeType = getMimeTypeFromBase64(menu.image);
+
   return (
     <Card>
       <CardContent className="aspect-square">
-        <div className="h-30 bg-amber-200"></div>
+        <img
+          src={`data:${mimeType};base64,${menu.image}`}
+          className="w-100 h-40 object-cover rounded border-2 border-sky-500"
+          alt={menu.productName}
+        />{' '}
         <h3 className="font-semibold mt-2">{menu.productName}</h3>
         <p className="text-sm">{menu.description}</p>
         <div className="flex gap-1 mt-2">

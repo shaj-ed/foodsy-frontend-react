@@ -10,9 +10,10 @@ export type MenuPayload = {
 export type MenuResponseList = MenuPayload & {
   id: number;
   createdAt: string;
+  image: string;
 };
 
-export type UpdateMenuPayload = Omit<MenuResponseList, 'createdAt'>;
+export type UpdateMenuPayload = Omit<MenuResponseList, 'createdAt' | 'image'>;
 
 export type MenuListWithPagination = {
   data: MenuResponseList[];
@@ -23,4 +24,9 @@ export type MenuListWithPagination = {
 export type UpdateMenuResponse = {
   data: MenuResponseList;
   message: string;
+};
+
+export type MenuFilter = {
+  minPrice: number;
+  maxPrice: number;
 };
