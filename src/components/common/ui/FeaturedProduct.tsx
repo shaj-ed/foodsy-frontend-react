@@ -1,12 +1,11 @@
-import SectionHeading from "../section/SectionHeading";
-import Products from "./Products";
+import SectionHeading from '../section/SectionHeading';
 
 const FeaturedProduct = () => {
   return (
     <div>
       <SectionHeading headline="More Foods" />
       <div className="mb-4"></div>
-      <Products />
+      {/* <Products /> */}
     </div>
   );
 };

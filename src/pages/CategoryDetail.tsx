@@ -1,7 +1,5 @@
-import FilterCard from "@/components/categories/FilterCard";
-import Products from "@/components/common/ui/Products";
-import SectionContainer from "@/components/common/section/SectionContainer";
-import SectionHeading from "@/components/common/section/SectionHeading";
+import SectionContainer from '@/components/common/section/SectionContainer';
+import SectionHeading from '@/components/common/section/SectionHeading';
 
 const CategoryDetail = () => {
   return (
@@ -13,13 +11,9 @@ const CategoryDetail = () => {
         </div>
 
         <div className="flex flex-col gap-4 lg:flex-row mt-4">
-          <div className="flex-1">
-            <FilterCard />
-          </div>
+          <div className="flex-1">{/* <FilterCard /> */}</div>
 
-          <div className="flex-1/2">
-            <Products />
-          </div>
+          <div className="flex-1/2">{/* <Products /> */}</div>
         </div>
       </div>
     </SectionContainer>
