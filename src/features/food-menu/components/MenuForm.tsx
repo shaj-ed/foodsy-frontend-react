@@ -22,7 +22,14 @@ import { useEffect } from 'react';
 import { getValueById } from '@/lib/helpers/array.helper';
 
 const MenuForm = () => {
-  const { openModal, setOpenModal, selectedMenu, selectedMenuFiles } = useMenuStore();
+  const {
+    openModal,
+    setOpenModal,
+    selectedMenu,
+    selectedMenuFiles,
+    clearSelected,
+    setSelectedMenu,
+  } = useMenuStore();
   const {
     control,
     handleSubmit,
@@ -43,7 +50,10 @@ const MenuForm = () => {
       const { categoryName, categoryId, ...payload } = data;
       const sendvalues = { categoryId: data.categoryId!, ...payload };
       if (selectedMenu) {
-        await updateMenu({ id: selectedMenu.id, ...sendvalues });
+        await updateMenu({
+          id: selectedMenu.id,
+          ...sendvalues,
+        });
       } else {
         await addMenu(sendvalues);
       }
@@ -57,12 +67,18 @@ const MenuForm = () => {
   };
 
   const cancelForm = () => {
-    reset(initMenuFormValues);
+    clearSelected();
+    setSelectedMenu(null);
   };
 
   useEffect(() => {
-    reset(initMenuFormValues);
+    if (!selectedMenu) {
+      reset(initMenuFormValues);
+      return;
+    }
+
     if (selectedMenu && selectedMenuFiles) {
+      console.log('from here');
       reset({
         productName: selectedMenu.productName,
         description: selectedMenu.description,
@@ -78,7 +94,9 @@ const MenuForm = () => {
     <Dialog open={openModal} onOpenChange={setOpenModal}>
       <form onSubmit={handleSubmit(onSubmit)} id="menu-form">
         <DialogTrigger asChild>
-          <Button variant="default">+ Add Menu</Button>
+          <Button variant="default" onClick={cancelForm}>
+            + Add Menu
+          </Button>
         </DialogTrigger>
 
         <DialogContent className="sm:max-w-[425px] md:max-w-2xl xl:max-w-4xl mx-auto px-8 z-[100] py-10 max-h-[88vh] overflow-y-auto">
