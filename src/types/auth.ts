@@ -9,10 +9,7 @@ export type UserType = {
   updatedAt: string;
 };
 
-export type UserRegisterPayloadType = Omit<
-  UserType,
-  "id" | "createdAt" | "updatedAt" | "role"
-> & {
+export type UserRegisterPayloadType = Omit<UserType, 'id' | 'createdAt' | 'updatedAt' | 'role'> & {
   password: string;
 };
 

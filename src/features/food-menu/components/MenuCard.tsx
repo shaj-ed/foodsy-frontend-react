@@ -12,7 +12,11 @@ type MenuCardProps = {
 const MenuCard = ({ menu }: MenuCardProps) => {
   const navigate = useNavigate();
   const onClickProduct = (id: number) => {
-    navigate(`/products/${id}`);
+    navigate(`/product/${id}`, {
+      state: {
+        categoryId: menu.categoryId,
+      },
+    });
   };
 
   const mimeType = getMimeTypeFromBase64(menu.image);

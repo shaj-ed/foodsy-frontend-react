@@ -29,8 +29,15 @@ export const routes = createBrowserRouter([
       { path: 'products', element: <ProductsPage /> },
       { path: 'categories', element: <CategoriesPage /> },
       { path: 'categories/:id', element: <CategoryDetail /> },
-      { path: 'products/:id', element: <ProductDetails /> },
-      { path: 'cart', element: <CartPage /> },
+      { path: 'product/:id', element: <ProductDetails /> },
+      {
+        path: 'cart',
+        element: (
+          <ProtectedRoute>
+            <CartPage />
+          </ProtectedRoute>
+        ),
+      },
       {
         path: 'account',
         element: (
