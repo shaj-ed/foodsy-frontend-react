@@ -1,14 +1,12 @@
 import Logo from '../common/ui/Logo';
-import { Menu, ShoppingCart, X } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 import HeaderAuthButtons from '../common/section/HeaderAuthButtons';
 import { useState } from 'react';
 import Usermenu from './Usermenu';
 import Nav from './Nav';
-import { Link } from 'react-router-dom';
-import { useAuthStore } from '@/store/authStore';
+import Cart from '../../features/cart/components/Cart';
 
 const Header = () => {
-  const { isAuthenticated } = useAuthStore();
   const [showMenu, setShowMenu] = useState(false);
 
   const onShowMenu = () => setShowMenu((prev) => !prev);
@@ -25,14 +23,7 @@ const Header = () => {
             <HeaderAuthButtons color="text-sky-600" />
           </div>
 
-          {isAuthenticated && (
-            <Link to="/cart" className="cursor-pointer relative">
-              <ShoppingCart className="text-sky-800" />
-              <span className="-top-2.5 left-3.5 absolute w-6 h-6 bg-red-500 rounded-full text-white font-semibold center">
-                5+
-              </span>
-            </Link>
-          )}
+          <Cart />
 
           <Usermenu />
 

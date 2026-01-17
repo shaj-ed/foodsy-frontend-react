@@ -16,6 +16,8 @@ import {
 } from '@/components/ui/carousel';
 import { useAuthStore } from '@/store/authStore';
 import { toast } from 'sonner';
+import { useAddCartItem } from '@/features/cart/hooks/cart.query';
+import { AddCartPayload } from '@/features/cart/types/cart.types';
 
 const ProductDetails = () => {
   const { isAuthenticated } = useAuthStore();
@@ -26,15 +28,30 @@ const ProductDetails = () => {
   const productId = Number(id);
 
   const { isLoading, product, images, error } = useMenuDetailsPages(productId);
+  const { mutateAsync: addNewCartItem, isPending } = useAddCartItem();
 
-  const handleAddCart = () => {
-    if (!isAuthenticated) {
+  const handleAddCart = async () => {
+    if (!isAuthenticated || !id) {
       toast.info('Please Login/Sign up');
       navigate('/auth/login');
       return;
     }
 
-    console.log(id);
+    try {
+      toast.loading('Processing..');
+      const payload: AddCartPayload = {
+        productId: Number(id),
+        quantity: 1,
+        notes: '',
+      };
+
+      console.log(id);
+      await addNewCartItem(payload);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      toast.dismiss();
+    }
   };
 
   if (isLoading) {
@@ -77,7 +94,7 @@ const ProductDetails = () => {
             <div>
               <h2 className="text-3xl font-headline">{product.data.productName}</h2>
               <p className="text-sm">{product.data.description}</p>
-              <p className="text-lg font-medium mt-3">Price: &#2547; 500</p>
+              <p className="text-lg font-medium mt-3">Price: &#2547; {product.data.price}</p>
               <div className="flex gap-1 mt-6">
                 {Array.from({ length: 5 }).map((_, index) => {
                   return <Star key={index} size="16px" className="text-amber-300 fill-amber-200" />;
@@ -88,6 +105,7 @@ const ProductDetails = () => {
                 size="lg"
                 className="uppercase bg-sky-700 hover:bg-sky-800 cursor-pointer mt-8"
                 onClick={handleAddCart}
+                disabled={isPending}
               >
                 Add to cart
               </Button>
