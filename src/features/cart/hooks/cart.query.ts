@@ -1,5 +1,11 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { addItem, deleteCartItem, getCart, updateItemQuantity } from '../api/cart.api';
+import {
+  addItem,
+  checkoutCart,
+  deleteCartItem,
+  getCart,
+  updateItemQuantity,
+} from '../api/cart.api';
 import { selectCartTransform } from '../../../lib/helpers/obj.helper';
 import { useAuthStore } from '@/store/authStore';
 
@@ -37,6 +43,15 @@ export const useDeleteCartItem = () => {
 
   return useMutation({
     mutationFn: deleteCartItem,
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ['cart'] }),
+  });
+};
+
+export const useCheckout = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: checkoutCart,
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ['cart'] }),
   });
 };

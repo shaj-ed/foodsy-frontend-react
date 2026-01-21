@@ -1,3 +1,5 @@
+import { CheckoutFormType } from '../schemas/checkout.schema';
+
 export type CartItem = {
   id: number;
   productId: number;
@@ -13,6 +15,8 @@ export type CartApiResponse = {
     id: number;
     status: 'ACTIVE' | 'ORDERED' | 'ABANDONED';
     total: number;
+    deliveryFee: number;
+    totalAmount: number;
     items: CartItem[];
   };
 };
@@ -22,4 +26,14 @@ export type AddCartPayload = {
   productId: number;
   quantity: number;
   notes: string;
+};
+
+export type CheckoutPayload = CheckoutFormType;
+
+export type CheckoutApiResponse = {
+  message: string;
+  data: {
+    subTotal: number;
+    totalAmount: number;
+  };
 };

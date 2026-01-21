@@ -6,6 +6,8 @@ export interface CartState {
   cartId: number | null;
   cartStatus: 'ACTIVE' | 'ORDERED' | 'ABANDONED' | null;
   totalPrice: number;
+  deliveryFee: number;
+  totalAmount: number;
   cartItems: CartItem[];
 
   setIsLoading: (v: boolean) => void;
@@ -17,6 +19,8 @@ export const useCartStore = create<CartState>((set) => ({
   cartId: null,
   cartStatus: null,
   totalPrice: 0,
+  deliveryFee: 0,
+  totalAmount: 0,
   cartItems: [],
 
   setIsLoading: (v) => {
@@ -27,6 +31,8 @@ export const useCartStore = create<CartState>((set) => ({
       cartId: v.cartId,
       cartStatus: v.cartStatus,
       totalPrice: v.totalPrice,
+      deliveryFee: v.deliveryFee,
+      totalAmount: v.totalAmount,
       cartItems: v.cartItems,
     });
   },

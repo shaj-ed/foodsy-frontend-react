@@ -8,6 +8,8 @@ export const selectCartTransform = (res: CartApiResponse) => {
     cartId: data.id,
     cartStatus: data.status,
     totalPrice: data.total,
+    deliveryFee: data.deliveryFee,
+    totalAmount: data.totalAmount,
     cartItems: data.items,
   };
 };

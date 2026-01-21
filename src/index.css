@@ -1,6 +1,6 @@
-@import url("https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
-@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+@import 'tailwindcss';
 
 @plugin "tailwindcss-animate";
 
@@ -19,8 +19,8 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  --font-headline: "Josefin Sans", sans-serif;
-  --font-body: "Montserrat", sans-serif;
+  --font-headline: 'Josefin Sans', sans-serif;
+  --font-body: 'Montserrat', sans-serif;
   --radius: 0.625rem;
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
@@ -145,7 +145,7 @@
   }
 
   .required::after {
-    content: "*"; /* The asterisk symbol */
+    content: '*'; /* The asterisk symbol */
     font-size: 1.6rem;
     position: absolute;
     top: 10%;
@@ -156,6 +156,10 @@
 
   .center {
     @apply flex justify-center items-center;
+  }
+
+  .items-center-between {
+    @apply flex items-center justify-between;
   }
 }
 

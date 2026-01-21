@@ -49,7 +49,7 @@ const CartCard = ({ cart }: CartCardProps) => {
   return (
     <div
       className={cn(
-        'mt-6 flex gap-3 rounded w-full h-[160px] max-w-[550px] bg-amber-100 pe-6',
+        'mt-6 flex gap-3 rounded w-full h-[160px] bg-amber-100 pe-6',
         isPending && 'pointer-events-none'
       )}
     >
